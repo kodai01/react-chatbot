@@ -3,6 +3,7 @@ import './assets/style.css';
 import defaultDataset from './dataset'
 import AnswersList from './components/answersList'
 import Chats from './components/chats'
+import FormDialog from './components/Forms/FormDialog'
 
 class App extends React.Component {
   constructor(props) {
@@ -15,6 +16,8 @@ class App extends React.Component {
       open: false
     }
     this.selectAnswer = this.selectAnswer.bind(this)
+    this.handleClickOpen = this.handleClickOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
   displayNextQuestion = (NextQuestionId) => {
@@ -42,7 +45,9 @@ class App extends React.Component {
         a.target = "_blank";
         a.click();
       break;
-
+      case (NextQuestionId === "contact"):
+        this.handleClickOpen()
+        break
       default: //init以外
     const chats = this.state.chats
     chats.push({
@@ -56,6 +61,13 @@ class App extends React.Component {
       break;
     }
   }
+  handleClickOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false})
+  };
 
   componentDidMount() {
     const initAnswer = "";
@@ -75,6 +87,7 @@ class App extends React.Component {
         <div className="c-box">
           <Chats chats={this.state.chats}/>
           <AnswersList answers={this.state.answers} select={this.selectAnswer}/>
+          <FormDialog open={this.state.open} handleClose={this.handleClose}/>
         </div>
       </section>
     );
