@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 const Answer = (props) => {
 
   return (
-     <Button variant="contained">{props.content}</Button>
+     <Button variant="contained" onClick={() => props.select(props.content, props.nextId)}>{props.content}</Button>
   )
 }
 

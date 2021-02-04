@@ -14,7 +14,7 @@ const Chat = (props) => {
           {isQuestion ? (
             <Avatar alt="Remy Sharp" src={Sellsperson} />//true
           ) : (
-            <Avatar alt="Remy Sharp" src={isQuestion} />//false
+            <Avatar alt="Remy Sharp" src={Customer} />//false
           )}
         </ListItemAvatar>
         <div className="p-chat__bubble">{props.text}</div>
