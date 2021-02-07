@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useCallback } from 'react'
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,36 +7,28 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextInput from './TextInput'
 
-export default class FormDialog extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      name: "",
-      email: "",
-      description: ""
-    }
-    this.inputName = this.inputName.bind(this)
-    this.inputEmail = this.inputEmail.bind(this)
-    this.inputDescription = this.inputDescription.bind(this)
-  }
+const FormDialog = (props) => {
 
-  inputName = (event) => {
-    this.setState({name: event.target.value})
-  }
-  inputEmail = (event) => {
-    this.setState({email: event.target.value})
-  }
-  inputDescription = (event) => {
-    this.setState({description: event.target.value})
-  }
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [description, setDescription] = useState("")
+  
+  const inputName = useCallback((event) => {
+    setName(event.target.value)
+  },[setName]);
 
+  const inputEmail = useCallback((event) => {
+    setEmail(event.target.value)
+  },[setEmail]);
 
+  const inputDescription = useCallback((event) => {
+    setDescription(event.target.value)
+  },[setDescription]);
 
-  render() {
     return (
       <Dialog
-        open={this.props.open}
-        onClose={this.props.handleClose}
+        open={props.open}
+        onClose={props.handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -44,25 +36,26 @@ export default class FormDialog extends React.Component {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <TextInput 
-            label={"お名前（必須）"} multiline={false} rows={1} value={this.state.name} type={"text"} onCnage={this.inputName}
+            label={"お名前（必須）"} multiline={false} rows={1} value={name} type={"text"} onChange={inputName}
             />
             <TextInput 
-            label={"メールアドレス（必須）"} multiline={false} rows={1} value={this.state.email} type={"email"} onCnage={this.inputEmail}
+            label={"メールアドレス（必須）"} multiline={false} rows={1} value={email} type={"email"} onChange={inputEmail}
             />
             <TextInput 
-            label={"名前（必須）"} multiline={true} rows={5} value={this.state.description} type={"text"} onCnage={this.inputDescription}
+            label={"名前（必須）"} multiline={true} rows={5} value={description} type={"text"} onChange={inputDescription}
             />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.props.handleClose} color="primary">
+          <Button onClick={props.handleClose} color="primary">
             Disagree
           </Button>
-          <Button onClick={this.props.handleClose} color="primary" autoFocus>
+          <Button onClick={props.handleClose} color="primary" autoFocus>
             Agree
           </Button>
         </DialogActions>
       </Dialog>
     )
-  }
 }
+
+export default FormDialog
