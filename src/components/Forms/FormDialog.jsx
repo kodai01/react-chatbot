@@ -48,10 +48,10 @@ const FormDialog = (props) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={props.handleClose} color="primary">
-            Disagree
+            キャンセル
           </Button>
           <Button onClick={props.handleClose} color="primary" autoFocus>
-            Agree
+            送信
           </Button>
         </DialogActions>
       </Dialog>
